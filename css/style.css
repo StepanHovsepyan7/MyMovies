@@ -1,12 +1,116 @@
-*{
-    margin: 0;
-    padding: 0;
+@import url('https://fonts.googleapis.com/css2?family=Playwrite+AU+SA:wght@100..400&display=swap');
+*
+ {
+  margin: 0;
+  padding: 0;
 }
-body{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: #212121;
 }
-html{
-    scroll-behavior: smooth;
+html {
+  scroll-behavior: smooth;
 }
+img {
+  object-fit: contain;
+}
+[class*="__container"] {
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+/* header */
+
+.navigation {
+  position: fixed !important;
+  width: 100%;
+  z-index: 99;
+}
+.nav-link {
+  color: white !important;
+}
+.navbar-brand {
+  color: white !important;
+  font-family: "Playwrite AU SA", cursive;
+}
+.navbar-toggler {
+  background-color: #ffffff !important;
+  border: none;
+  color: white !important;
+}
+
+/* header  end*/
+
+/* Popular section */
+
+#popular {
+  padding-top: 150px;
+  color: white;
+}
+.title {
+  text-align: center;
+  font-family: "Playwrite AU SA", cursive;
+}
+.popularParent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+.parentCard {
+  cursor: pointer;
+  text-align: center;
+}
+.parentCard img {
+  height: 350px;
+  border-radius: 20px;
+  transition: 0.3s;
+}
+.parentCard span {
+  padding-top: 10px;
+}
+.parentCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: 0.3s;
+  overflow: hidden;
+}
+#root {
+  padding-top: 60px;
+}
+.spans {
+  font-weight: bold;
+}
+.spansTitle {
+  font-size: 25px;
+}
+.contentCard {
+  width: 235px;
+  height: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: #34313169;
+  backdrop-filter: blur(10px);
+  position: absolute;
+  margin-top: 200px;
+  opacity: 0;
+  transition: 0.3s;
+  border: none;
+  transform: translateY(100%);
+  border-radius: 0px 0px 20px 20px;
+}
+
+.parentCard:hover .contentCard {
+  opacity: 1;
+  transform: translateY(0);
+}
+.parentCard:hover.parentCard img{
+  opacity: 0.5;
+}
+/* Popular section */
