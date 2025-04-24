@@ -19,7 +19,7 @@
   <header>
     <nav class="navbar navigation navbar-expand-lg bg-body-dark bg-dark ">
       <div class="container-fluid">
-        <a class="navbar-brand" href="#">Movies</a>
+        <a onclick="loadPopular()" id="brand" class="navbar-brand" href="#">Movies</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
           aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -51,8 +51,7 @@
             </li>
           </ul>
           <form class="d-flex" role="search">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Search</button>
+            <input class="form-control me-2 searchInp" type="search" placeholder="Search Movie..." aria-label="Search">
           </form>
         </div>
       </div>
@@ -64,12 +63,12 @@
 
   <main>
     <section id="popular">
-      <h1 class="title">Popular Films</h1>
+      <h1 class="title" id="title">Popular Films</h1>
       <div class="popular__container">
         <div id="root">
-         <div class="popularParent">
-          
-         </div>
+          <div class="popularParent">
+
+          </div>
         </div>
       </div>
     </section>
