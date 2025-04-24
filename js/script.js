@@ -4,6 +4,8 @@ let popularParent = document.getElementsByClassName("popularParent")[0];
 let searchInp = document.getElementsByClassName("searchInp")[0];
 let title = document.getElementById("title");
 let form = document.getElementById("form");
+let genresParent = document.getElementById("genresParent");
+let sliderParent = document.getElementById("slider");
 let awards = document.getElementById("awards");
 let awardsHtml = awards.innerHTML;
 
@@ -11,9 +13,6 @@ let img_url_original = "https://image.tmdb.org/t/p/original";
 let img_url = "https://image.tmdb.org/t/p/w500";
 
 console.log("https://api.themoviedb.org/3/movie/popular?" + API_KEY);
-
-// https://api.themoviedb.org/3/search/movie?api_key=ՁերՔեյը&query
-// =ինպուտիցՎերցվածԱրժեքը
 
 function loadPopular() {
 	popularParent.innerHTML = "";
@@ -43,6 +42,24 @@ function loadPopular() {
 }
 
 loadPopular();
+
+// Genres
+
+function genres() {
+	fetch("https://api.themoviedb.org/3/genre/movie/list?" + API_KEY)
+		.then((response) => response.json())
+		.then((genersData) => {
+			genersData.genres.forEach((e) => {
+				let genreBtn = document.createElement("button");
+				genreBtn.classList.add("genreBtn");
+				genreBtn.innerHTML = e.name;
+				genresParent.append(genreBtn);
+			});
+		})
+		.catch((err) => console.error("Error fetching genres:", err));
+}
+
+genres();
 
 // Movies Search
 
