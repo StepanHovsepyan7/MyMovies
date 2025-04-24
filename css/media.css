@@ -1,3 +1,24 @@
+@media screen and (max-width: 630px) {
+  .footerParent {
+    padding-top: 60px !important;
+    padding-bottom: 60px !important;
+  }
+  .downloadParent {
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+  }
+  .note{
+    text-align: center;
+  }
+  .note:nth-child(1){
+    margin-top: 30px !important;
+  }
+  .iconsParent{
+    display: flex !important;
+    justify-content: center !important;
+  }
+}
+
 @media screen and (max-width: 430px) {
   .awardImg {
     width: 100% !important;

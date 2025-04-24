@@ -16,8 +16,8 @@
 <body>
 
 
-  <header data-aos="fade-down" data-aos-duration="1000">
-    <nav class="navbar navigation navbar-expand-lg bg-body-dark bg-dark">
+  <header>
+    <nav class="navbar navigation navbar-expand-lg bg-body-dark bg-dark" data-aos="fade-down" data-aos-duration="1000">
       <div class="container-fluid">
         <a onclick="loadPopular()" id="brand" class="navbar-brand" href="#">Movies</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
@@ -28,6 +28,9 @@
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="#awards">Awards</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#footer">Footer</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">Link</a>
@@ -45,9 +48,6 @@
                 </li>
                 <li><a class="dropdown-item" href="#">Something else here</a></li>
               </ul>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link disabled" aria-disabled="true">Disabled</a>
             </li>
           </ul>
           <form id="form" class="d-flex" role="search">
@@ -107,6 +107,85 @@
 
 
 
+
+  <footer>
+    <section id="footer">
+      <div class="footer__container">
+        <div class="footerParent">
+          <ul>
+            <li class="mainLink">ABOUT</li>
+            <div class="childLinks">
+              <li>
+                <a href="#">About</a>
+              </li>
+              <li>
+                <a href="#">Home</a>
+              </li>
+              <li>
+                <a href="#">Awards</a>
+              </li>
+              <li>
+                <a href="#">Conditions</a>
+              </li>
+            </div>
+          </ul>
+          <ul>
+            <li class="mainLink">CATEGORIES</li>
+            <div class="childLinks">
+              <li>
+                <a href="#">News</a>
+              </li>
+              <li>
+                <a href="#">Pro</a>
+              </li>
+              <li>
+                <a href="#">Apps</a>
+              </li>
+              <li>
+                <a href="#">Podcast</a>
+              </li>
+              <li>
+                <a href="#">Year in Review</a>
+              </li>
+              <li>
+                <a href="#">Gift Guide</a>
+              </li>
+              <li>
+                <a href="#">API</a>
+              </li>
+            </div>
+          </ul>
+          <div>
+            <p class="note">TAKE YOUR LEARNING WITH YOU</p>
+            <div class="downloadParent">
+              <button>
+                <i class="fa-brands fa-apple icons"></i>
+                <span>Download On the <br> Apple Store</span>
+              </button>
+              <button>
+                <i class="fa-brands fa-google-play icons"></i>
+                <span>Download On the <br> Play Market</span>
+              </button>
+            </div>
+            <div>
+              <div id="socialMediaParent">
+                <p class="note">FOLLOW US ON SOCIAL MEDIA</p>
+                <div class="iconsParent">
+                  <i class="fa-brands fa-facebook icons"></i>
+                  <i class="fa-brands fa-twitter icons"></i>
+                  <i class="fa-brands fa-instagram icons"></i>
+                  <i class="fa-brands fa-linkedin icons"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="line">
+            <p>© Letterboxd Limited. Made by fans in Armenia. Film data from TMDb. Mobile site.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </footer>
 
 
 

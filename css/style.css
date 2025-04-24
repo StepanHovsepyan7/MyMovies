@@ -15,6 +15,12 @@ html {
 img {
   object-fit: contain;
 }
+ul {
+  list-style: none;
+}
+a {
+  text-decoration: none;
+}
 [class*="__container"] {
   max-width: 1440px;
   margin: 0 auto;
@@ -189,3 +195,87 @@ img {
 }
 
 /* genres */
+
+/* footer */
+
+#footer {
+  background-color: rgba(33, 37, 41, 1);
+  color: white;
+  height: 100%;
+  padding-bottom: 30px;
+}
+.footer__container {
+  margin-top: 150px;
+}
+.footer__container a {
+  color: white;
+}
+.mainLink {
+  font-weight: 500;
+  font-size: 20px;
+}
+.childLinks {
+  margin-top: 25px;
+  gap: 10px;
+}
+.childLinks li {
+  font-size: 15px;
+  font-weight: 400;
+  padding-top: 15px;
+}
+.footerParent {
+  display: flex;
+  align-items: start;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  padding-top: 100px;
+}
+.note {
+  font-size: 17px;
+  font-weight: 500;
+}
+.downloadParent {
+  gap: 20px;
+  display: flex;
+  align-items: center;
+}
+.downloadParent button {
+  background-color: #dc5f00;
+  width: 200px;
+  height: 61px;
+  color: white;
+  border: none;
+  padding-top: 25px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 0 10px;
+  text-align: start;
+  justify-content: flex-start;
+  font-weight: 500;
+}
+.downloadParent span {
+  font-size: 15px;
+  line-height: 1.2;
+}
+.icons {
+  font-size: 25px;
+  cursor: pointer;
+}
+#socialMediaParent {
+  padding-top: 73px;
+}
+.iconsParent i {
+  padding-left: 20px;
+}
+.line {
+  height: 3px;
+  margin-top: 97px;
+  width: 100%;
+  background-color: white;
+}
+.line p {
+  padding-top: 25px;
+}
+/* footer */
