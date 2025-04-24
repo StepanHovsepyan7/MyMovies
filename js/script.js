@@ -3,6 +3,9 @@ let root = document.getElementById("root");
 let popularParent = document.getElementsByClassName("popularParent")[0];
 let searchInp = document.getElementsByClassName("searchInp")[0];
 let title = document.getElementById("title");
+let form = document.getElementById("form");
+let awards = document.getElementById("awards");
+let awardsHtml = awards.innerHTML;
 
 let img_url_original = "https://image.tmdb.org/t/p/original";
 let img_url = "https://image.tmdb.org/t/p/w500";
@@ -15,6 +18,7 @@ console.log("https://api.themoviedb.org/3/movie/popular?" + API_KEY);
 function loadPopular() {
 	popularParent.innerHTML = "";
 	title.innerHTML = "Popular Films";
+	awards.innerHTML = awardsHtml;
 
 	fetch("https://api.themoviedb.org/3/movie/popular?" + API_KEY)
 		.then((response) => response.json())
@@ -23,7 +27,7 @@ function loadPopular() {
 				// root.innerHTML+=`<img src=${img_url+elm.backdrop_path} />`
 
 				popularParent.innerHTML += `
-          <div class="parentCard">
+          <div class="parentCard" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="500">
                 <img src=${img_url + elm.poster_path}/>
                 <div class = "contentCard">
                     <span class = "spans spansTitle">${elm.title}</span>
@@ -42,6 +46,10 @@ loadPopular();
 
 // Movies Search
 
+form.addEventListener("submit", (e) => {
+	e.preventDefault();
+});
+
 function search() {
 	let timer = "";
 	searchInp.addEventListener("input", (e) => {
@@ -56,10 +64,11 @@ function search() {
 					.then((data) => data.json())
 					.then((data) => {
 						popularParent.innerHTML = "";
+						awards.innerHTML = "";
 
 						data.results.forEach((e) => {
 							popularParent.innerHTML += `
-          <div class="parentCard">
+          <div class="parentCard"  data-aos="fade-up" data-aos-duration="1000" data-aos-delay="500">
                 <img src=${img_url + e.poster_path}/>
                 <div class = "contentCard">
                     <span class = "spans spansTitle">${e.title}</span>
@@ -72,6 +81,7 @@ function search() {
 					});
 			} else {
 				title.innerHTML = "Popular Films";
+				awards.innerHTML = awardsHtml;
 				loadPopular();
 			}
 		}, 1000);
@@ -79,3 +89,5 @@ function search() {
 }
 
 search();
+
+AOS.init();
