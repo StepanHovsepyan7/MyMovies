@@ -63,7 +63,7 @@ function genres() {
 					popularParent.innerHTML = "";
 					upcomingParent.innerHTML = "";
 					title2.innerHTML = "";
-					upcomingmovies.style.margin = "0px";
+					upcomingmovies.style.marginTop = "0px";
 
 					fetch(
 						`https://api.themoviedb.org/3/discover/movie?${API_KEY}&with_genres=${e.id}`
@@ -113,7 +113,7 @@ function search() {
 					.then((data) => {
 						popularParent.innerHTML = "";
 						upcomingParent.innerHTML = "";
-						upcomingmovies.style.margin = "0";
+						upcomingmovies.style.marginTop = "0";
 						awards.innerHTML = "";
 
 						data.results.forEach((e) => {
@@ -132,7 +132,7 @@ function search() {
 			} else {
 				title.innerHTML = "Popular Films";
 				awards.innerHTML = awardsHtml;
-				upcomingmovies.style.margin = "150px";
+				upcomingmovies.style.marginTop = "150px";
 				loadPopular();
 				upcomingMovies();
 			}
@@ -144,7 +144,7 @@ search();
 
 function upcomingMovies() {
 	upcomingParent.innerHTML = "";
-	upcomingmovies.style.margin = "150px";
+	upcomingmovies.style.marginTop = "150px";
 	title2.innerHTML = "Upcoming Movies";
 	fetch(`https://api.themoviedb.org/3/movie/upcoming?` + API_KEY)
 		.then((res) => res.json())

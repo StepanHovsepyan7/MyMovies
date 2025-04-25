@@ -7,13 +7,13 @@
     flex-wrap: wrap !important;
     justify-content: center !important;
   }
-  .note{
+  .note {
     text-align: center;
   }
-  .note:nth-child(1){
+  .note:nth-child(1) {
     margin-top: 30px !important;
   }
-  .iconsParent{
+  .iconsParent {
     display: flex !important;
     justify-content: center !important;
   }
