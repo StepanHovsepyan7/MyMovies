@@ -58,6 +58,7 @@ a {
 .title {
   text-shadow: 2px 2px 8px rgba(255, 255, 255, 0.3);
   text-align: center;
+  color: white;
   font-family: "Playwrite AU SA", cursive;
 }
 .popularParent {
@@ -157,10 +158,11 @@ a {
 
 /* Genres */
 
-.carousel {
+/* .carousel {
   padding-top: 150px;
   color: white !important;
-}
+} */
+
 .genres__container {
   padding-top: 150px;
   color: white;
@@ -195,6 +197,25 @@ a {
 }
 
 /* genres */
+
+/* upcoming movies */
+
+.upcoming__container {
+  padding-top: 60px;
+  color: white;
+}
+#upcoming-Movies {
+  margin-top: 150px;
+}
+.upcomingParent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+/* upcoming movies */
 
 /* footer */
 
