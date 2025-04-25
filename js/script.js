@@ -54,9 +54,34 @@ function genres() {
 				genreBtn.classList.add("genreBtn");
 				genreBtn.innerHTML = e.name;
 				genresParent.append(genreBtn);
+
+				genreBtn.addEventListener("click", () => {
+					title.innerHTML = `${e.name}`;
+					awards.innerHTML = "";
+					popularParent.innerHTML = "";
+
+					fetch(
+						`https://api.themoviedb.org/3/discover/movie?${API_KEY}&with_genres=${e.id}`
+					)
+						.then((res) => res.json())
+						.then((data) => {
+							data.results.forEach((e) => {
+								popularParent.innerHTML += `
+							<div class="parentCard" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="500">
+								  <img src=${img_url + e.poster_path}/>
+								  <div class = "contentCard">
+									  <span class = "spans spansTitle">${e.title}</span>
+									  <span class = "spans">Rating: ${e.vote_average}</span>
+									  <span class = "spans">${e.release_date}</span>
+								  </div>
+							  </div>
+						  `;
+							});
+						});
+				});
 			});
 		})
-		.catch((err) => console.error("Error fetching genres:", err));
+		.catch((err) => console.error("Error fetching genre Movies:", err));
 }
 
 genres();
