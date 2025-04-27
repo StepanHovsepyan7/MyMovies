@@ -281,6 +281,18 @@ a {
   z-index: 1000;
   overflow: hidden;
   border-radius: 8px;
+  animation: popupAnimation 0.5s ease forwards;
+}
+
+@keyframes popupAnimation {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.7);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
 }
 
 .popup iframe {

@@ -71,12 +71,12 @@ function iframes(video) {
 	iframeContainer.innerHTML = "";
 	video.results.forEach((e) => {
 		iframeContainer.innerHTML += `
-			<div class = "iframeParent">
+			<div class = "iframeParent ">
 				<div class = "ytBtn" onclick = "videoBtn('${e.key}')">
 					<i class="fa-brands fa-youtube"></i>
 				</div>
 				<div>
-					<img class="iframeIMG" src="https://img.youtube.com/vi/${e.key}/hqdefault.jpg"  width="100%" height="500px" />
+					<img  class="iframeIMG" src="https://img.youtube.com/vi/${e.key}/hqdefault.jpg"  width="100%" height="500px" />
 				</div>
 			</div>
 		`;
