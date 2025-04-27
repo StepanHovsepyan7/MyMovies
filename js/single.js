@@ -4,6 +4,7 @@ let actorsParent = document.getElementById("actorsParent");
 let iframeContainer = document.getElementsByClassName("iframe__container")[0];
 let popup = document.getElementById("popup");
 let overlay = document.getElementById("overlay");
+let faXmark = document.getElementsByClassName("fa-xmark")[0];
 let img_url_original = "https://image.tmdb.org/t/p/original";
 let img_url = "https://image.tmdb.org/t/p/w500";
 
@@ -92,6 +93,11 @@ function videoBtn(key) {
 }
 
 overlay.addEventListener("click", () => {
+	overlay.style.display = "none";
+	popup.style.display = "none";
+});
+
+faXmark.addEventListener("click", () => {
 	overlay.style.display = "none";
 	popup.style.display = "none";
 });
