@@ -28,7 +28,10 @@ function loadPopular() {
 				// root.innerHTML+=`<img src=${img_url+elm.backdrop_path} />`
 
 				popularParent.innerHTML += `
-          <div class="parentCard" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="500">
+				<a href="single.html?id=${
+					elm.id
+				}" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="500">
+				<div class="parentCard">
                 <img src=${img_url + elm.poster_path}/>
                 <div class = "contentCard">
                     <span class = "spans spansTitle">${elm.title}</span>
@@ -36,6 +39,8 @@ function loadPopular() {
                     <span class = "spans">${elm.release_date}</span>
                 </div>
             </div>
+				</a>
+       
         `;
 			})
 		)
@@ -72,7 +77,11 @@ function genres() {
 						.then((data) => {
 							data.results.forEach((e) => {
 								popularParent.innerHTML += `
-							<div class="parentCard" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="500">
+
+								<a href="single.html?id=${
+									e.id
+								}" data-aos="flip-up" data-aos-duration="1000" data-aos-delay="500">
+									<div class="parentCard" >
 								  <img src=${img_url + e.poster_path}/>
 								  <div class = "contentCard">
 									  <span class = "spans spansTitle">${e.title}</span>
@@ -80,6 +89,8 @@ function genres() {
 									  <span class = "spans">${e.release_date}</span>
 								  </div>
 							  </div>
+								</a>
+						
 						  `;
 							});
 						});
@@ -118,15 +129,21 @@ function search() {
 
 						data.results.forEach((e) => {
 							popularParent.innerHTML += `
-          <div class="parentCard"  data-aos="fade-up" data-aos-duration="1000" data-aos-delay="500">
-                <img src=${img_url + e.poster_path}/>
+
+						<a href="single.html?id=${
+							e.id
+						}" data-aos="flip-down" data-aos-duration="1000" data-aos-delay="500">
+							<div class="parentCard">
+                			<img src=${img_url + e.poster_path}/>
                 <div class = "contentCard">
-                    <span class = "spans spansTitle">${e.title}</span>
-                    <span class = "spans">Rating: ${e.vote_average}</span>
-                    <span class = "spans">${e.release_date}</span>
+                    	<span class = "spans spansTitle">${e.title}</span>
+                    	<span class = "spans">Rating: ${e.vote_average}</span>
+                    	<span class = "spans">${e.release_date}</span>
                 </div>
-            </div>
-        `;
+            			</div>
+						</a>
+        
+        			`;
 						});
 					});
 			} else {
@@ -151,7 +168,10 @@ function upcomingMovies() {
 		.then((data) => {
 			data.results.forEach((e) => {
 				upcomingParent.innerHTML += `
-			          <div class="parentCard"  data-aos="fade-up" data-aos-duration="1000" data-aos-delay="500">
+				<a href="single.html?id=${
+					e.id
+				}" data-aos="flip-up" data-aos-duration="1000" data-aos-delay="500">
+					      <div class="parentCard"  >
                 <img src=${img_url + e.poster_path}/>
                 <div class = "contentCard">
                     <span class = "spans spansTitle">${e.title}</span>
@@ -159,6 +179,8 @@ function upcomingMovies() {
                     <span class = "spans">${e.release_date}</span>
                 </div>
             </div>
+				</a>
+			  
 			
 			`;
 			});

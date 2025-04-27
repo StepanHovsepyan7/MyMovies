@@ -20,6 +20,7 @@ ul {
 }
 a {
   text-decoration: none;
+  color: white;
 }
 [class*="__container"] {
   max-width: 1440px;
@@ -71,6 +72,12 @@ a {
 .parentCard {
   cursor: pointer;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+  transition: 0.3s;
+  position: relative;
 }
 .parentCard img {
   height: 350px;
@@ -104,7 +111,7 @@ a {
 }
 
 .contentCard {
-  width: 235px;
+  width: 100%;
   height: 150px;
   display: flex;
   justify-content: center;
@@ -113,15 +120,17 @@ a {
   background-color: #34313169;
   backdrop-filter: blur(10px);
   position: absolute;
-  margin-top: 200px;
+  top: 200px;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
   opacity: 0;
   padding: 10px;
   transition: 0.3s;
-  border: none;
-  transform: translateY(100%);
   border-radius: 0px 0px 20px 20px;
+  transform: translateY(100%);
+  border: none;
 }
-
 .parentCard:hover .contentCard {
   opacity: 1;
   transform: translateY(0);
@@ -157,11 +166,6 @@ a {
 /* awards Section */
 
 /* Genres */
-
-/* .carousel {
-  padding-top: 150px;
-  color: white !important;
-} */
 
 .genres__container {
   padding-top: 150px;
@@ -299,4 +303,5 @@ a {
 .line p {
   padding-top: 25px;
 }
+
 /* footer */
