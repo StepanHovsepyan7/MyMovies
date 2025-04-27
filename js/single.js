@@ -2,7 +2,8 @@ let root = document.getElementById("root");
 let body = document.querySelector("body");
 let actorsParent = document.getElementById("actorsParent");
 let iframeContainer = document.getElementsByClassName("iframe__container")[0];
-
+let popup = document.getElementById("popup");
+let overlay = document.getElementById("overlay");
 let img_url_original = "https://image.tmdb.org/t/p/original";
 let img_url = "https://image.tmdb.org/t/p/w500";
 
@@ -21,9 +22,9 @@ if (movieId) {
 		.then((res) => res.json())
 		.then((res) => actors(res));
 
-	// fetch(`https://api.themoviedb.org/3/movie/${movieId}/videos?${API_KEY}`)
-	// 	.then((res) => res.json())
-	// 	.then((res) => iframes(res));
+	fetch(`https://api.themoviedb.org/3/movie/${movieId}/videos?${API_KEY}`)
+		.then((res) => res.json())
+		.then((res) => iframes(res));
 }
 function printCards(cards) {
 	root.innerHTML = `
@@ -66,7 +67,32 @@ function actors(actor) {
 	});
 }
 
-// function iframes(video) {
-// }
+function iframes(video) {
+	iframeContainer.innerHTML = "";
+	video.results.forEach((e) => {
+		iframeContainer.innerHTML += `
+			<div class = "iframeParent">
+				<div class = "ytBtn" onclick = "videoBtn('${e.key}')">
+					<i class="fa-brands fa-youtube"></i>
+				</div>
+				<div>
+					<img class="iframeIMG" src="https://img.youtube.com/vi/${e.key}/hqdefault.jpg"  width="100%" height="500px" />
+				</div>
+			</div>
+		`;
+	});
+}
 
+function videoBtn(key) {
+	popup.innerHTML = `
+			 <iframe src="https://www.youtube.com/embed/${key}" frameborder="0" allowfullscreen></iframe>
+	`;
+	overlay.style.display = "flex";
+	popup.style.display = "flex";
+}
+
+overlay.addEventListener("click", () => {
+	overlay.style.display = "none";
+	popup.style.display = "none";
+});
 AOS.init();
