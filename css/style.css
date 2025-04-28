@@ -1,4 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Playwrite+AU+SA:wght@100..400&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&display=swap');
+
 * {
   margin: 0;
   padding: 0;
@@ -187,7 +189,7 @@ a {
   border-radius: 20px;
   background-color: transparent;
   color: white;
-  font-family: "Poppins", sans-serif;
+  font-family: "Archivo", sans-serif;
   font-size: 14px;
   cursor: pointer;
   transition: all 0.3s ease;

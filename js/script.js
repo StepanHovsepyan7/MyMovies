@@ -52,6 +52,8 @@ loadPopular();
 
 // Genres
 
+let chosenMovie = [];
+
 function genres() {
 	fetch("https://api.themoviedb.org/3/genre/movie/list?" + API_KEY)
 		.then((response) => response.json())
@@ -63,6 +65,11 @@ function genres() {
 				genresParent.append(genreBtn);
 
 				genreBtn.addEventListener("click", () => {
+					if (chosenMovie.includes(e.id)) {
+						let index = chosenMovie.includes(e.id);
+					} else {
+						chosenMovie.push(e.id);
+					}
 					title.innerHTML = `${e.name}`;
 					awards.innerHTML = "";
 					popularParent.innerHTML = "";
@@ -71,7 +78,7 @@ function genres() {
 					upcomingmovies.style.marginTop = "0px";
 
 					fetch(
-						`https://api.themoviedb.org/3/discover/movie?${API_KEY}&with_genres=${e.id}`
+						`https://api.themoviedb.org/3/discover/movie?${API_KEY}&with_genres=${chosenMovie}`
 					)
 						.then((res) => res.json())
 						.then((data) => {
@@ -91,6 +98,7 @@ function genres() {
 							  </div>
 								</a>
 						
+								
 						  `;
 							});
 						});
