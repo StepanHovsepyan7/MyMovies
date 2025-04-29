@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Playwrite+AU+SA:wght@100..400&display=swap");
-@import url('https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
 
 * {
   margin: 0;
@@ -189,7 +190,7 @@ a {
   border-radius: 20px;
   background-color: transparent;
   color: white;
-  font-family: "Archivo", sans-serif;
+  font-family: "Poppins", "Nunito", "Quicksand", sans-serif;
   font-size: 14px;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -308,36 +309,35 @@ a {
 
 /* footer */
 
-
 /* selected Genres */
 
-#selectedGenres{
+#selectedGenres {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
   margin-top: 30px;
 }
-#selectedGenres button{
+#selectedGenres button {
   margin: 6px;
   padding: 8px 16px;
   border: 1px solid #ffffff55;
   border-radius: 20px;
   background-color: transparent;
   color: white;
-  font-family: "Archivo", sans-serif;
   font-size: 14px;
   cursor: pointer;
   transition: all 0.3s ease;
+  font-family: "Poppins", "Nunito", "Quicksand", sans-serif;
 }
 
-#selectedGenres button:hover{
+#selectedGenres button:hover {
   background-color: white;
   color: #222;
   transform: scale(1.05);
-  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2); 
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
 }
 
-.titleGenres{
+.titleGenres {
   margin-top: 60px;
   text-align: start;
   font-size: 30px;
