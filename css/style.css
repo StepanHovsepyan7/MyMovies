@@ -307,3 +307,38 @@ a {
 }
 
 /* footer */
+
+
+/* selected Genres */
+
+#selectedGenres{
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 30px;
+}
+#selectedGenres button{
+  margin: 6px;
+  padding: 8px 16px;
+  border: 1px solid #ffffff55;
+  border-radius: 20px;
+  background-color: transparent;
+  color: white;
+  font-family: "Archivo", sans-serif;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+#selectedGenres button:hover{
+  background-color: white;
+  color: #222;
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2); 
+}
+
+.titleGenres{
+  margin-top: 60px;
+  text-align: start;
+  font-size: 30px;
+}

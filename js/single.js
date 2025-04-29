@@ -70,7 +70,7 @@ function actors(actor) {
 
 function iframes(video) {
 	iframeContainer.innerHTML = "";
-	video.results.forEach((e) => {
+	video.results.slice(0,3).forEach((e) => {
 		iframeContainer.innerHTML += `
 			<div class = "iframeParent ">
 				<div class = "ytBtn" onclick = "videoBtn('${e.key}')">
@@ -86,7 +86,7 @@ function iframes(video) {
 
 function videoBtn(key) {
 	popup.innerHTML = `
-			 <iframe src="https://www.youtube.com/embed/${key}" frameborder="0" allowfullscreen></iframe>
+		<iframe src="https://www.youtube.com/embed/${key}" frameborder="0" allowfullscreen></iframe>
 	`;
 	overlay.style.display = "flex";
 	popup.style.display = "flex";

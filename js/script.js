@@ -6,6 +6,7 @@ let searchInp = document.getElementsByClassName("searchInp")[0];
 let title = document.getElementById("title");
 let title2 = document.getElementById("title2");
 let form = document.getElementById("form");
+let selectedGenres = document.getElementById("selectedGenres");
 let genresParent = document.getElementById("genresParent");
 let upcomingmovies = document.getElementById("upcoming-Movies");
 let awards = document.getElementById("awards");
@@ -25,8 +26,6 @@ function loadPopular() {
 		.then((response) => response.json())
 		.then((response) =>
 			response.results.forEach((elm) => {
-				// root.innerHTML+=`<img src=${img_url+elm.backdrop_path} />`
-
 				popularParent.innerHTML += `
 				<a href="single.html?id=${
 					elm.id
@@ -40,7 +39,6 @@ function loadPopular() {
                 </div>
             </div>
 				</a>
-       
         `;
 			})
 		)
@@ -53,11 +51,67 @@ loadPopular();
 // Genres
 
 let chosenMovie = [];
+let allGneres = [];
+
+function showSelectedGenres() {
+	selectedGenres.innerHTML = "";
+	chosenMovie.forEach((id) => {
+		let foundGenre = allGneres.find((genre) => genre.id === id);
+
+		if (foundGenre) {
+			let btn = document.createElement("button");
+			btn.innerHTML =
+				foundGenre.name + ' ' + ` <i class="fa-solid fa-xmark"></i>`;
+			btn.addEventListener("click", () => {
+				chosenMovie = chosenMovie.filter((e) => e !== id);
+				showSelectedGenres();
+				loadedGenre();
+			});
+			selectedGenres.append(btn);
+		}
+	});
+}
+
+function loadedGenre() {
+	popularParent.innerHTML = "";
+
+	if (chosenMovie.length === 0) {
+		loadPopular();
+		title.innerHTML = "Popular Movies";
+	} else {
+		fetch(
+			`https://api.themoviedb.org/3/discover/movie?${API_KEY}&with_genres=${chosenMovie}`
+		)
+			.then((res) => res.json())
+			.then((data) => {
+				if (data.results.length === 0) {
+					popularParent.innerHTML = `<p>No movies found for the selected genres.</p>`;
+				} else {
+					data.results.forEach((e) => {
+						popularParent.innerHTML += `
+							<a href="single.html?id=${e.id}" data-aos="flip-up" data-aos-duration="1000" data-aos-delay="500">
+								<div class="parentCard">
+									<img src=${img_url + e.poster_path}/>
+									<div class="contentCard">
+										<span class="spans spansTitle">${e.title}</span>
+										<span class="spans">Rating: ${e.vote_average}</span>
+										<span class="spans">${e.release_date}</span>
+									</div>
+								</div>
+							</a>
+						`;
+					});
+				}
+			})
+			.catch((err) => console.error("Error fetching genre movies:", err));
+	}
+}
 
 function genres() {
 	fetch("https://api.themoviedb.org/3/genre/movie/list?" + API_KEY)
 		.then((response) => response.json())
 		.then((genersData) => {
+			allGneres = genersData.genres;
 			genersData.genres.forEach((e) => {
 				let genreBtn = document.createElement("button");
 				genreBtn.classList.add("genreBtn");
@@ -65,43 +119,21 @@ function genres() {
 				genresParent.append(genreBtn);
 
 				genreBtn.addEventListener("click", () => {
-					if (chosenMovie.includes(e.id)) {
-						let index = chosenMovie.includes(e.id);
-					} else {
+					if (!chosenMovie.includes(e.id)) {
 						chosenMovie.push(e.id);
+					} else {
+						chosenMovie = chosenMovie.filter((id) => id !== e.id);
 					}
-					title.innerHTML = `${e.name}`;
+
+					showSelectedGenres();
+					loadedGenre();
+
+					title.innerHTML = "Filtered by Genres";
 					awards.innerHTML = "";
 					popularParent.innerHTML = "";
 					upcomingParent.innerHTML = "";
 					title2.innerHTML = "";
 					upcomingmovies.style.marginTop = "0px";
-
-					fetch(
-						`https://api.themoviedb.org/3/discover/movie?${API_KEY}&with_genres=${chosenMovie}`
-					)
-						.then((res) => res.json())
-						.then((data) => {
-							data.results.forEach((e) => {
-								popularParent.innerHTML += `
-
-								<a href="single.html?id=${
-									e.id
-								}" data-aos="flip-up" data-aos-duration="1000" data-aos-delay="500">
-									<div class="parentCard" >
-								  <img src=${img_url + e.poster_path}/>
-								  <div class = "contentCard">
-									  <span class = "spans spansTitle">${e.title}</span>
-									  <span class = "spans">Rating: ${e.vote_average}</span>
-									  <span class = "spans">${e.release_date}</span>
-								  </div>
-							  </div>
-								</a>
-						
-								
-						  `;
-							});
-						});
 				});
 			});
 		})
@@ -137,7 +169,6 @@ function search() {
 
 						data.results.forEach((e) => {
 							popularParent.innerHTML += `
-
 						<a href="single.html?id=${
 							e.id
 						}" data-aos="flip-down" data-aos-duration="1000" data-aos-delay="500">
@@ -150,7 +181,6 @@ function search() {
                 </div>
             			</div>
 						</a>
-        
         			`;
 						});
 					});
@@ -179,7 +209,7 @@ function upcomingMovies() {
 				<a href="single.html?id=${
 					e.id
 				}" data-aos="flip-up" data-aos-duration="1000" data-aos-delay="500">
-					      <div class="parentCard"  >
+					      <div class="parentCard">
                 <img src=${img_url + e.poster_path}/>
                 <div class = "contentCard">
                     <span class = "spans spansTitle">${e.title}</span>
@@ -188,8 +218,6 @@ function upcomingMovies() {
                 </div>
             </div>
 				</a>
-			  
-			
 			`;
 			});
 		});
