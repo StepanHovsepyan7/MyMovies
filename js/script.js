@@ -67,7 +67,7 @@ function showSelectedGenres() {
 				let genreButtons = document.querySelectorAll(".genreBtn");
 				genreButtons.forEach((e) => {
 					if (e.innerHTML === foundGenre.name) {
-						e.classList.remove("active");
+						e.classList.remove("activeBtn");
 					}
 				});
 
@@ -131,11 +131,20 @@ function genres() {
 
 				genreBtn.addEventListener("click", () => {
 					if (!chosenMovie.includes(e.id)) {
-						genreBtn.classList.add("active");
+						genreBtn.classList.add("activeBtn");
 						chosenMovie.push(e.id);
-					} else {
-						chosenMovie = chosenMovie.filter((id) => id !== e.id);
+					
+						showSelectedGenres();
+						loadedGenre();
+					
+						title.innerHTML = "Filtered by Genres";
+						awards.innerHTML = "";
+						popularParent.innerHTML = "";
+						upcomingParent.innerHTML = "";
+						title2.innerHTML = "";
+						upcomingmovies.style.marginTop = "0px";
 					}
+					
 
 					showSelectedGenres();
 					loadedGenre();
