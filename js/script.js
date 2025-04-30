@@ -133,10 +133,10 @@ function genres() {
 					if (!chosenMovie.includes(e.id)) {
 						genreBtn.classList.add("activeBtn");
 						chosenMovie.push(e.id);
-					
+
 						showSelectedGenres();
 						loadedGenre();
-					
+
 						title.innerHTML = "Filtered by Genres";
 						awards.innerHTML = "";
 						popularParent.innerHTML = "";
@@ -144,7 +144,6 @@ function genres() {
 						title2.innerHTML = "";
 						upcomingmovies.style.marginTop = "0px";
 					}
-					
 
 					showSelectedGenres();
 					loadedGenre();
