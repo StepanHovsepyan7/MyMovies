@@ -61,9 +61,16 @@ function showSelectedGenres() {
 		if (foundGenre) {
 			let btn = document.createElement("button");
 			btn.innerHTML =
-				foundGenre.name + ' ' + ` <i class="fa-solid fa-xmark"></i>`;
+				foundGenre.name + " " + ` <i class="fa-solid fa-xmark"></i>`;
 			btn.addEventListener("click", () => {
 				chosenMovie = chosenMovie.filter((e) => e !== id);
+				let genreButtons = document.querySelectorAll(".genreBtn");
+				genreButtons.forEach((e) => {
+					if (e.innerHTML === foundGenre.name) {
+						e.classList.remove("active");
+					}
+				});
+
 				showSelectedGenres();
 				loadedGenre();
 			});
@@ -77,6 +84,7 @@ function loadedGenre() {
 
 	if (chosenMovie.length === 0) {
 		loadPopular();
+		upcomingMovies();
 		title.innerHTML = "Popular Movies";
 	} else {
 		fetch(
@@ -89,7 +97,9 @@ function loadedGenre() {
 				} else {
 					data.results.forEach((e) => {
 						popularParent.innerHTML += `
-							<a href="single.html?id=${e.id}" data-aos="flip-up" data-aos-duration="1000" data-aos-delay="500">
+							<a href="single.html?id=${
+								e.id
+							}" data-aos="flip-up" data-aos-duration="1000" data-aos-delay="500">
 								<div class="parentCard">
 									<img src=${img_url + e.poster_path}/>
 									<div class="contentCard">
@@ -115,11 +125,13 @@ function genres() {
 			genersData.genres.forEach((e) => {
 				let genreBtn = document.createElement("button");
 				genreBtn.classList.add("genreBtn");
+
 				genreBtn.innerHTML = e.name;
 				genresParent.append(genreBtn);
 
 				genreBtn.addEventListener("click", () => {
 					if (!chosenMovie.includes(e.id)) {
+						genreBtn.classList.add("active");
 						chosenMovie.push(e.id);
 					} else {
 						chosenMovie = chosenMovie.filter((id) => id !== e.id);
