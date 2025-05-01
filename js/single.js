@@ -12,18 +12,19 @@ let img_url = "https://image.tmdb.org/t/p/w500";
 
 const dataLocation = new URLSearchParams(window.location.search);
 const movieId = dataLocation.get("id");
+const type = dataLocation.get("type") || "movie";
 const API_KEY = "api_key=9b702a6b89b0278738dab62417267c49";
 
 if (movieId) {
-	fetch(`https://api.themoviedb.org/3/movie/${movieId}?${API_KEY}`)
+	fetch(`https://api.themoviedb.org/3/${type}/${movieId}?${API_KEY}`)
 		.then((res) => res.json())
 		.then((res) => printCards(res));
 
-	fetch(`https://api.themoviedb.org/3/movie/${movieId}/credits?${API_KEY}`)
+	fetch(`https://api.themoviedb.org/3/${type}/${movieId}/credits?${API_KEY}`)
 		.then((res) => res.json())
 		.then((res) => actors(res));
 
-	fetch(`https://api.themoviedb.org/3/movie/${movieId}/videos?${API_KEY}`)
+	fetch(`https://api.themoviedb.org/3/${type}/${movieId}/videos?${API_KEY}`)
 		.then((res) => res.json())
 		.then((res) => iframes(res));
 }
@@ -33,10 +34,14 @@ function printCards(cards) {
 	  <div class="single__container" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="500">
 	  	<div class = "contentSingle">
 		   <div class="contentChild"> 
-				  <span class="title">${cards.title}</span>
+				  <span class="title">${cards.title || cards.name}</span>
 				  <p class = "overview">${cards.overview}</p>  
-				  <span class="titleOfSpan">Popularity: <span class="secondarySpan">${cards.popularity}</span></span>
-				  <span class="titleOfSpan">Vote Count: <span class="secondarySpan">${cards.vote_count}</span></span>
+				  <span class="titleOfSpan">Popularity: <span class="secondarySpan">${
+						cards.popularity
+					}</span></span>
+				  <span class="titleOfSpan">Vote Count: <span class="secondarySpan">${
+						cards.vote_count
+					}</span></span>
 			</div>
 	</div>
         <div class="bgImage">
@@ -70,7 +75,7 @@ function actors(actor) {
 
 function iframes(video) {
 	iframeContainer.innerHTML = "";
-	video.results.slice(0,3).forEach((e) => {
+	video.results.slice(0, 3).forEach((e) => {
 		iframeContainer.innerHTML += `
 			<div class = "iframeParent ">
 				<div class = "ytBtn" onclick = "videoBtn('${e.key}')">

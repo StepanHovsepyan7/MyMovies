@@ -17,39 +17,36 @@ let img_url = "https://image.tmdb.org/t/p/w500";
 
 console.log("https://api.themoviedb.org/3/movie/popular?" + API_KEY);
 
-function loadPopular() {
+function loadPopular(type = "movie") {
 	popularParent.innerHTML = "";
 	title.innerHTML = "Popular Films";
 	awards.innerHTML = awardsHtml;
 
-	fetch("https://api.themoviedb.org/3/movie/popular?" + API_KEY)
+	fetch(`https://api.themoviedb.org/3/${type}/popular?${API_KEY}`)
 		.then((response) => response.json())
 		.then((response) =>
 			response.results.forEach((elm) => {
 				popularParent.innerHTML += `
 				<a href="single.html?id=${
 					elm.id
-				}" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="500">
-				<div class="parentCard">
-                <img src=${img_url + elm.poster_path}/>
-                <div class = "contentCard">
-                    <span class = "spans spansTitle">${elm.title}</span>
-                    <span class = "spans">Rating: ${elm.vote_average}</span>
-                    <span class = "spans">${elm.release_date}</span>
-                </div>
-            </div>
-				</a>
-        `;
+				}&type=${type}" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="500">
+					<div class="parentCard">
+						<img src=${img_url + elm.poster_path}/>
+						<div class="contentCard">
+							<span class="spans spansTitle">${elm.title}</span>
+							<span class="spans">Rating: ${elm.vote_average}</span>
+							<span class="spans">${elm.release_date}</span>
+						</div>
+					</div>
+				</a>`;
 			})
 		)
-
 		.catch((err) => console.error(err));
 }
 
 loadPopular();
 
 // Genres
-
 let chosenMovie = [];
 let allGneres = [];
 
@@ -57,20 +54,16 @@ function showSelectedGenres() {
 	selectedGenres.innerHTML = "";
 	chosenMovie.forEach((id) => {
 		let foundGenre = allGneres.find((genre) => genre.id === id);
-
 		if (foundGenre) {
 			let btn = document.createElement("button");
-			btn.innerHTML =
-				foundGenre.name + " " + ` <i class="fa-solid fa-xmark"></i>`;
+			btn.innerHTML = `${foundGenre.name} <i class="fa-solid fa-xmark"></i>`;
 			btn.addEventListener("click", () => {
 				chosenMovie = chosenMovie.filter((e) => e !== id);
-				let genreButtons = document.querySelectorAll(".genreBtn");
-				genreButtons.forEach((e) => {
+				document.querySelectorAll(".genreBtn").forEach((e) => {
 					if (e.innerHTML === foundGenre.name) {
 						e.classList.remove("activeBtn");
 					}
 				});
-
 				showSelectedGenres();
 				loadedGenre();
 			});
@@ -79,16 +72,16 @@ function showSelectedGenres() {
 	});
 }
 
-function loadedGenre() {
+function loadedGenre(type) {
 	popularParent.innerHTML = "";
-
 	if (chosenMovie.length === 0) {
 		loadPopular();
 		upcomingMovies();
 		title.innerHTML = "Popular Movies";
 	} else {
+		const selected = chosenMovie.join(",");
 		fetch(
-			`https://api.themoviedb.org/3/discover/movie?${API_KEY}&with_genres=${chosenMovie}`
+			`https://api.themoviedb.org/3/discover/${type}?${API_KEY}&with_genres=${selected}`
 		)
 			.then((res) => res.json())
 			.then((data) => {
@@ -97,19 +90,18 @@ function loadedGenre() {
 				} else {
 					data.results.forEach((e) => {
 						popularParent.innerHTML += `
-							<a href="single.html?id=${
+							<a  href="single.html?id=${
 								e.id
-							}" data-aos="flip-up" data-aos-duration="1000" data-aos-delay="500">
+							}&type=${type}" data-aos="flip-up" data-aos-duration="1000" data-aos-delay="500">
 								<div class="parentCard">
 									<img src=${img_url + e.poster_path}/>
 									<div class="contentCard">
-										<span class="spans spansTitle">${e.title}</span>
+										<span class="spans spansTitle">${e.title || e.name}</span>
 										<span class="spans">Rating: ${e.vote_average}</span>
-										<span class="spans">${e.release_date}</span>
+										<span class="spans">${e.release_date || e.first_air_date}</span>
 									</div>
 								</div>
-							</a>
-						`;
+							</a>`;
 					});
 				}
 			})
@@ -117,15 +109,15 @@ function loadedGenre() {
 	}
 }
 
-function genres() {
-	fetch("https://api.themoviedb.org/3/genre/movie/list?" + API_KEY)
+function genres(type = "movie") {
+	genresParent.innerHTML = "";
+	fetch(`https://api.themoviedb.org/3/genre/${type}/list?` + API_KEY)
 		.then((response) => response.json())
 		.then((genersData) => {
 			allGneres = genersData.genres;
 			genersData.genres.forEach((e) => {
 				let genreBtn = document.createElement("button");
 				genreBtn.classList.add("genreBtn");
-
 				genreBtn.innerHTML = e.name;
 				genresParent.append(genreBtn);
 
@@ -133,9 +125,8 @@ function genres() {
 					if (!chosenMovie.includes(e.id)) {
 						genreBtn.classList.add("activeBtn");
 						chosenMovie.push(e.id);
-
 						showSelectedGenres();
-						loadedGenre();
+						loadedGenre(type);
 
 						title.innerHTML = "Filtered by Genres";
 						awards.innerHTML = "";
@@ -144,16 +135,6 @@ function genres() {
 						title2.innerHTML = "";
 						upcomingmovies.style.marginTop = "0px";
 					}
-
-					showSelectedGenres();
-					loadedGenre();
-
-					title.innerHTML = "Filtered by Genres";
-					awards.innerHTML = "";
-					popularParent.innerHTML = "";
-					upcomingParent.innerHTML = "";
-					title2.innerHTML = "";
-					upcomingmovies.style.marginTop = "0px";
 				});
 			});
 		})
@@ -163,7 +144,6 @@ function genres() {
 genres();
 
 // Movies Search
-
 form.addEventListener("submit", (e) => {
 	e.preventDefault();
 });
@@ -172,13 +152,13 @@ function search() {
 	let timer = "";
 	searchInp.addEventListener("input", (e) => {
 		clearTimeout(timer);
-
 		timer = setTimeout(() => {
-			if (e.target.value.trim() !== "") {
+			const query = e.target.value.trim();
+			if (query !== "") {
 				title.innerHTML = "Results";
 				title2.innerHTML = "";
 				fetch(
-					`https://api.themoviedb.org/3/search/movie?${API_KEY}&query=${e.target.value.trim()}`
+					`https://api.themoviedb.org/3/search/multi?${API_KEY}&query=${query}`
 				)
 					.then((data) => data.json())
 					.then((data) => {
@@ -188,20 +168,24 @@ function search() {
 						awards.innerHTML = "";
 
 						data.results.forEach((e) => {
-							popularParent.innerHTML += `
-						<a href="single.html?id=${
-							e.id
-						}" data-aos="flip-down" data-aos-duration="1000" data-aos-delay="500">
-							<div class="parentCard">
-                			<img src=${img_url + e.poster_path}/>
-                <div class = "contentCard">
-                    	<span class = "spans spansTitle">${e.title}</span>
-                    	<span class = "spans">Rating: ${e.vote_average}</span>
-                    	<span class = "spans">${e.release_date}</span>
-                </div>
-            			</div>
-						</a>
-        			`;
+							if (
+								e.media_type === "movie" ||
+								e.media_type === "tv"
+							) {
+								popularParent.innerHTML += `
+								<a href="single.html?id=${e.id}&type=${
+									e.media_type
+								}" data-aos="flip-down" data-aos-duration="1000" data-aos-delay="500">
+									<div class="parentCard">
+										<img src=${img_url + e.poster_path}/>
+										<div class="contentCard">
+											<span class="spans spansTitle">${e.title || e.name}</span>
+											<span class="spans">Rating: ${e.vote_average}</span>
+											<span class="spans">${e.release_date || e.first_air_date}</span>
+										</div>
+									</div>
+								</a>`;
+							}
 						});
 					});
 			} else {
@@ -217,32 +201,84 @@ function search() {
 
 search();
 
-function upcomingMovies() {
+function upcomingMovies(type = "movie") {
 	upcomingParent.innerHTML = "";
 	upcomingmovies.style.marginTop = "150px";
 	title2.innerHTML = "Upcoming Movies";
-	fetch(`https://api.themoviedb.org/3/movie/upcoming?` + API_KEY)
+
+	fetch(`https://api.themoviedb.org/3/movie/upcoming?${API_KEY}`)
 		.then((res) => res.json())
 		.then((data) => {
 			data.results.forEach((e) => {
 				upcomingParent.innerHTML += `
 				<a href="single.html?id=${
 					e.id
-				}" data-aos="flip-up" data-aos-duration="1000" data-aos-delay="500">
-					      <div class="parentCard">
-                <img src=${img_url + e.poster_path}/>
-                <div class = "contentCard">
-                    <span class = "spans spansTitle">${e.title}</span>
-                    <span class = "spans">Rating: ${e.vote_average}</span>
-                    <span class = "spans">${e.release_date}</span>
-                </div>
-            </div>
-				</a>
-			`;
+				}&type=${type}" data-aos="flip-up" data-aos-duration="1000" data-aos-delay="500">
+					<div class="parentCard">
+						<img src=${img_url + e.poster_path}/>
+						<div class="contentCard">
+							<span class="spans spansTitle">${e.title}</span>
+							<span class="spans">Rating: ${e.vote_average}</span>
+							<span class="spans">${e.release_date}</span>
+						</div>
+					</div>
+				</a>`;
 			});
 		});
 }
 
 upcomingMovies();
+
+function loadPopularTV() {
+	popularParent.innerHTML = "";
+	title.innerHTML = "Popular TV Shows";
+	awards.innerHTML = "";
+
+	fetch(`https://api.themoviedb.org/3/tv/popular?${API_KEY}`)
+		.then((res) => res.json())
+		.then((data) => {
+			data.results.forEach((e) => {
+				popularParent.innerHTML += `
+				<a href="single.html?id=${
+					e.id
+				}&type=tv" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="500">
+					<div class="parentCard">
+						<img src=${img_url + e.poster_path}/>
+						<div class="contentCard">
+							<span class="spans spansTitle">${e.name || e.title}</span>
+							<span class="spans">Rating: ${e.vote_average}</span>
+							<span class="spans">${e.release_date || e.first_air_date}</span>
+						</div>
+					</div>
+				</a>`;
+			});
+		});
+}
+
+function loadUpcomingTV() {
+	upcomingParent.innerHTML = "";
+	title2.innerHTML = "Currently Airing TV Shows";
+	upcomingmovies.style.marginTop = "150px";
+
+	fetch(`https://api.themoviedb.org/3/tv/on_the_air?${API_KEY}`)
+		.then((res) => res.json())
+		.then((data) => {
+			data.results.forEach((e) => {
+				upcomingParent.innerHTML += `
+				<a href="single.html?id=${
+					e.id
+				}&type=tv" data-aos="flip-up" data-aos-duration="1000" data-aos-delay="500">
+					<div class="parentCard">
+						<img src=${img_url + e.poster_path}/>
+						<div class="contentCard">
+							<span class="spans spansTitle">${e.name || e.title}</span>
+							<span class="spans">Rating: ${e.vote_average}</span>
+							<span class="spans">${e.release_date || e.first_air_date}</span>
+						</div>
+					</div>
+				</a>`;
+			});
+		});
+}
 
 AOS.init();

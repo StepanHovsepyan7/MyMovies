@@ -35,11 +35,16 @@
                 Categories
               </a>
               <ul class="dropdown-menu ">
-                <li><a class="dropdown-item" href="#popular">Popular Films</a></li>
+                <li><a onclick="loadPopular('movie'), genres('movie')" class="dropdown-item" href="#popular">Popular
+                    Films</a></li>
+                <li><a onclick="upcomingMovies()" class="dropdown-item" href="#upcoming-Movies">Upcoming Movies</a></li>
                 <li>
                   <hr class="dropdown-divider">
                 </li>
-                <li><a class="dropdown-item" href="#upcoming-Movies">Upcoming Movies</a></li>
+                <li><a onclick="loadPopularTV(), genres('tv')" class="dropdown-item" href="#">Soap Opera Popular</a>
+                </li>
+                <li><a onclick="loadUpcomingTV() " class="dropdown-item" href="#upcoming-Movies">Currently Airing TV Shows</a>
+                </li>
               </ul>
             </li>
             <li class="nav-item">
@@ -61,6 +66,8 @@
 
 
 
+
+
     <section>
       <div class="genres__container">
         <h1 class="title">Genres</h1>
@@ -70,6 +77,7 @@
         <h1 class="title titleGenres">Selected Genres</h1>
 
         <div id="selectedGenres">
+
         </div>
       </div>
 
